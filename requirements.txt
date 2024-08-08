@@ -1,0 +1,10 @@
+Flask
+torch
+transformers
+pytesseract
+Pillow
+Flask-SQLAlchemy
+Flask-Migrate
+firebase-admin
+Flask-Wtf
+wtforms
