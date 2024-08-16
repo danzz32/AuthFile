@@ -1,89 +1,98 @@
 {% extends 'base.html' %}
 
-{% block head%}
+{% block head %}
     <style>
         body {
             background: linear-gradient(
-              90deg,
-              #0c0ef2,
-              #0640f2,
-              #184ef2,
-              #2959f2,
-              #889cf3
+                    90deg,
+                    #0c0ef2,
+                    #0640f2,
+                    #184ef2,
+                    #2959f2,
+                    #889cf3
             );
         }
-
     </style>
-
 {% endblock %}
 
 {% block body %}
-<div class="container ">
-    <div class="row d-flex justify-content-center align-items-center ">
-        <div class="col-md-6">
-            <img src="/static/imgs/AUTHFILE_ICON%20BG.png" width="450" height="auto" class="d-inline-block align-text-center">
-        </div>
-        <div class="col-md-6 bg-light rounded p-3">
-            <form method="POST" action="{{ url_for('main.login') }}">
-                {{ form_login.hidden_tag() }}
-                <div class="mb-3">
-                    {{ form_login.email.label(class="form-label") }}
-                    {{ form_login.email(class="form-control") }}
-                </div>
-                <div class="mb-3">
-                    {{ form_login.senha.label(class="form-label") }}
-                    {{ form_login.senha(class="form-control") }}
-                </div>
-                <div class="mb-3 form-check">
-                    {{ form_login.continuar_conectado(class="form-check-input") }}
-                    {{ form_login.continuar_conectado.label(class="form-check-label") }}
-                </div>
-                <div class="container d-flex justify-content-between">
-                    <div class="">
-                        {{ form_login.btn_submit_login(class="btn btn-primary") }}
-                    </div>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cadastroModal">
-                        Criar Conta
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="cadastroModal" tabindex="-1" aria-labelledby="cadastroModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="cadastroModalLabel">Cadastro</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="container">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-md-6">
+                <img src="/static/imgs/AUTHFILE_ICON%20BG.png" width="450" height="auto"
+                     class="d-inline-block align-text-center">
             </div>
-            <div class="modal-body">
-                <form method="POST" action="{{ url_for('main.cadastro') }}">
-                    {{ form_cadastro.hidden_tag() }}
+            <div class="col-md-6 bg-light rounded p-3">
+                <!-- Formulário de Login -->
+                <form method="POST" action="{{ url_for('main.login') }}">
+                    {{ form_login.hidden_tag() }}
                     <div class="mb-3">
-                        {{ form_cadastro.username.label(class="form-label") }}
-                        {{ form_cadastro.username(class="form-control") }}
+                        {{ form_login.email_comercial.label(class="form-label") }}
+                        {{ form_login.email_comercial(class="form-control") }}
                     </div>
                     <div class="mb-3">
-                        {{ form_cadastro.email.label(class="form-label") }}
-                        {{ form_cadastro.email(class="form-control") }}
+                        {{ form_login.senha.label(class="form-label") }}
+                        {{ form_login.senha(class="form-control") }}
                     </div>
-                    <div class="mb-3">
-                        {{ form_cadastro.senha.label(class="form-label") }}
-                        {{ form_cadastro.senha(class="form-control") }}
+                    <div class="mb-3 form-check">
+                        {{ form_login.continuar_conectado(class="form-check-input") }}
+                        {{ form_login.continuar_conectado.label(class="form-check-label") }}
                     </div>
-                    <div class="mb-3">
-                        {{ form_cadastro.confirmacao_senha.label(class="form-label") }}
-                        {{ form_cadastro.confirmacao_senha(class="form-control") }}
-                    </div>
-                    <div class="mb-3">
-                        {{ form_cadastro.btn_submit_criarConta(class="btn btn-primary") }}
+                    <div class="container d-flex justify-content-between">
+                        <div class="">
+                            {{ form_login.btn_submit_login(class="btn btn-primary") }}
+                        </div>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#cadastroModal">
+                            Criar Conta
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-</div>
+
+    <!-- Modal de Cadastro -->
+    <div class="modal fade" id="cadastroModal" tabindex="-1" aria-labelledby="cadastroModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cadastroModalLabel">Cadastro</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ url_for('main.login') }}">
+                        {{ form_cadastro.hidden_tag() }}
+                        <div class="mb-3">
+                            {{ form_cadastro.nome.label(class="form-label") }}
+                            {{ form_cadastro.nome(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_cadastro.cnpj.label(class="form-label") }}
+                            {{ form_cadastro.cnpj(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_cadastro.representante.label(class="form-label") }}
+                            {{ form_cadastro.representante(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_cadastro.email_comercial.label(class="form-label") }}
+                            {{ form_cadastro.email_comercial(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_cadastro.senha.label(class="form-label") }}
+                            {{ form_cadastro.senha(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_cadastro.confirmacao_senha.label(class="form-label") }}
+                            {{ form_cadastro.confirmacao_senha(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_cadastro.btn_submit_criarConta(class="btn btn-primary") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
