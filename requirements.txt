@@ -8,3 +8,5 @@ Flask-Migrate
 firebase-admin
 Flask-Wtf
 wtforms
+PyMuPDF
+python-docx

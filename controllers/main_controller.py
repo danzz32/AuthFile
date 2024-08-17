@@ -2,6 +2,14 @@ from flask import render_template, redirect, url_for, session, flash
 
 from forms.forms import FormLogin, FormCadastro
 from models.empresa_repository import EmpresaRepository
+# from objects.ai import OcrProcessor, DocumentProcessor
+
+# Inicialize o processador de OCR e o processador de documentos
+# ocr = OcrProcessor(language='por')
+# doc_processor = DocumentProcessor(
+#     model_path='path/to/your/bert/model',
+#     tokenizer_path='path/to/your/bert/tokenizer'
+# )
 
 
 def home():
@@ -25,7 +33,7 @@ def login():
 
         if empresa and empresa.senha == senha:
             session['user'] = email
-            print(f"Usuario logado - {empresa.nome} | {empresa.email_comercial}")
+            print(f"Usuário logado - {empresa.nome} | {empresa.email_comercial}")
             return redirect(url_for('main.index'))
         else:
             flash('E-mail ou senha incorretos. Verifique suas credenciais e tente novamente.', 'danger')
@@ -42,15 +50,15 @@ def login():
             empresa_repo.add(nova_empresa)
             flash('Cadastro realizado com sucesso!', 'success')
             print(
-                f"Usuario Cadastrado - {empresa.nome} | {empresa.email_comercial} | {empresa.cnpj} | {empresa.representante}")
+                f"Usuário Cadastrado - {nova_empresa.nome} | {nova_empresa.email_comercial} | {nova_empresa.cnpj} | {nova_empresa.representante}")
             return redirect(url_for('main.index'))
 
     return render_template('login.html', form_login=form_login, form_cadastro=form_cadastro)
 
 
 def logout():
-    session.pop('user_id', None)
-    print(f"Logout Efetuado")
+    session.pop('user', None)  # Atualize 'user_id' para 'user' para corresponder ao que está sendo usado no login
+    print("Logout Efetuado")
     return redirect(url_for('main.login'))
 
 
@@ -69,3 +77,33 @@ def user_info():
         flash('Você precisa estar logado para acessar essa página', 'danger')
         return redirect(url_for('main.login'))
 
+#####################################################################
+# FAZER OS TESTES NO PC DO LAB
+# def upload_document():
+#     if 'user' not in session:
+#         flash('Você precisa estar logado para acessar essa página', 'danger')
+#         return redirect(url_for('main.login'))
+#
+#     if request.method == 'POST':
+#         if 'file' not in request.files:
+#             flash('Nenhum arquivo enviado', 'danger')
+#             return redirect(url_for('main.index'))
+#
+#         file = request.files['file']
+#         if file.filename == '':
+#             flash('Nenhum arquivo selecionado', 'danger')
+#             return redirect(url_for('main.index'))
+#
+#         if file:
+#             file_path = os.path.join('uploads', file.filename)
+#             file.save(file_path)
+#
+#             # Realiza OCR e extrai texto
+#             extracted_text = ocr.process(file_path)
+#
+#             # Analisa o texto com o modelo BERT
+#             analysis_results = doc_processor.analyze(extracted_text)
+#
+#             return render_template('results.html', results=analysis_results)
+#
+#     return render_template('index.html')
