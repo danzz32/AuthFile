@@ -1,15 +1,17 @@
-from flask import render_template, redirect, url_for, session, flash
+import os
+
+from flask import render_template, redirect, url_for, session, flash, request
 
 from forms.forms import FormLogin, FormCadastro
 from models.empresa_repository import EmpresaRepository
-# from objects.ai import OcrProcessor, DocumentProcessor
+from objects.ai import OcrProcessor, DocumentProcessor
 
 # Inicialize o processador de OCR e o processador de documentos
-# ocr = OcrProcessor(language='por')
-# doc_processor = DocumentProcessor(
-#     model_path='path/to/your/bert/model',
-#     tokenizer_path='path/to/your/bert/tokenizer'
-# )
+ocr = OcrProcessor(language='por')
+doc_processor = DocumentProcessor(
+    model_path='path/to/your/bert/model',
+    tokenizer_path='path/to/your/bert/tokenizer'
+)
 
 
 def home():
@@ -77,33 +79,33 @@ def user_info():
         flash('Você precisa estar logado para acessar essa página', 'danger')
         return redirect(url_for('main.login'))
 
-#####################################################################
+
 # FAZER OS TESTES NO PC DO LAB
-# def upload_document():
-#     if 'user' not in session:
-#         flash('Você precisa estar logado para acessar essa página', 'danger')
-#         return redirect(url_for('main.login'))
-#
-#     if request.method == 'POST':
-#         if 'file' not in request.files:
-#             flash('Nenhum arquivo enviado', 'danger')
-#             return redirect(url_for('main.index'))
-#
-#         file = request.files['file']
-#         if file.filename == '':
-#             flash('Nenhum arquivo selecionado', 'danger')
-#             return redirect(url_for('main.index'))
-#
-#         if file:
-#             file_path = os.path.join('uploads', file.filename)
-#             file.save(file_path)
-#
-#             # Realiza OCR e extrai texto
-#             extracted_text = ocr.process(file_path)
-#
-#             # Analisa o texto com o modelo BERT
-#             analysis_results = doc_processor.analyze(extracted_text)
-#
-#             return render_template('results.html', results=analysis_results)
-#
-#     return render_template('index.html')
+def upload_document():
+    if 'user' not in session:
+        flash('Você precisa estar logado para acessar essa página', 'danger')
+        return redirect(url_for('main.login'))
+
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            flash('Nenhum arquivo enviado', 'danger')
+            return redirect(url_for('main.index'))
+
+        file = request.files['file']
+        if file.filename == '':
+            flash('Nenhum arquivo selecionado', 'danger')
+            return redirect(url_for('main.index'))
+
+        if file:
+            file_path = os.path.join('uploads', file.filename)
+            file.save(file_path)
+
+            # Realiza OCR e extrai texto
+            extracted_text = ocr.process(file_path)
+
+            # Analisa o texto com o modelo BERT
+            analysis_results = doc_processor.analyze(extracted_text)
+
+            return render_template('results.html', results=analysis_results)
+
+    return render_template('index.html')
