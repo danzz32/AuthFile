@@ -4,22 +4,31 @@ from flask import render_template, redirect, url_for, session, flash, request
 
 from forms.forms import FormLogin, FormCadastro
 from models.empresa_repository import EmpresaRepository
-from objects.ai import OcrProcessor, DocumentProcessor
+from models.documento_repository import DocumentoRepository, Documento
+from models.item_repository import Item, ItemRepository
+# from objects.document_processor import DocumentProcessor
+from werkzeug.utils import secure_filename
+# from utils.pdf_extractor import extract_table_from_pdf
 
-# Inicialize o processador de OCR e o processador de documentos
-ocr = OcrProcessor(language='por')
-doc_processor = DocumentProcessor(
-    model_path='path/to/your/bert/model',
-    tokenizer_path='path/to/your/bert/tokenizer'
-)
 
+# Configurações de upload
+UPLOAD_FOLDER = 'files'
+ALLOWED_EXTENSIONS = {'pdf', 'docx', 'doc'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def home():
     return redirect(url_for('main.login'))
 
 
 def index():
-    return render_template('index.html')
+    if 'user' in session:
+        email = session['user']
+        empresa_repo = EmpresaRepository()
+        empresa = empresa_repo.get_by_email(email)
+        
+    return render_template('index.html',empresa=empresa)
 
 
 def login():
@@ -59,7 +68,7 @@ def login():
 
 
 def logout():
-    session.pop('user', None)  # Atualize 'user_id' para 'user' para corresponder ao que está sendo usado no login
+    session.pop('user', None)
     print("Logout Efetuado")
     return redirect(url_for('main.login'))
 
@@ -81,31 +90,46 @@ def user_info():
 
 
 # FAZER OS TESTES NO PC DO LAB
-def upload_document():
-    if 'user' not in session:
-        flash('Você precisa estar logado para acessar essa página', 'danger')
-        return redirect(url_for('main.login'))
+# def upload_document():
+#     if 'licitacao' not in request.files:
+#         flash('Nenhum arquivo enviado.', 'error')
+#         return redirect(url_for('upload_page'))
 
-    if request.method == 'POST':
-        if 'file' not in request.files:
-            flash('Nenhum arquivo enviado', 'danger')
-            return redirect(url_for('main.index'))
+#     file = request.files['licitacao']
 
-        file = request.files['file']
-        if file.filename == '':
-            flash('Nenhum arquivo selecionado', 'danger')
-            return redirect(url_for('main.index'))
+#     if file.filename == '':
+#         flash('Nenhum arquivo selecionado.', 'error')
+#         return redirect(url_for('upload_page'))
 
-        if file:
-            file_path = os.path.join('uploads', file.filename)
-            file.save(file_path)
+#     if file:
+#         # Defina o diretório para salvar o arquivo
+#         upload_folder = 'files'  # Ajuste o caminho conforme necessário
+#         os.makedirs(upload_folder, exist_ok=True)
 
-            # Realiza OCR e extrai texto
-            extracted_text = ocr.process(file_path)
+#         filepath = os.path.join(upload_folder, file.filename)
+#         print(f"Saving file to: {filepath}")
 
-            # Analisa o texto com o modelo BERT
-            analysis_results = doc_processor.analyze(extracted_text)
+#         try:
+#             file.save(filepath)
+#         except Exception as e:
+#             flash(f'Erro ao salvar o arquivo: {e}', 'error')
+#             return redirect(url_for('upload_page'))
 
-            return render_template('results.html', results=analysis_results)
+#         # Extraia a tabela e adicione os itens ao banco de dados
+#         item_data_list = extract_table_from_pdf(filepath)
+#         documento_id = request.form.get('documento_id')  # Obtenha o ID do documento, se necessário
 
-    return render_template('index.html')
+#         item_repository = ItemRepository()
+#         item_repository.add_items_from_data(item_data_list, documento_id)
+
+#         flash('Documentos enviados e itens adicionados com sucesso!', 'success')
+#         return redirect(url_for('results_page'))
+
+#     flash('Erro ao processar o arquivo.', 'error')
+#     return redirect(url_for('upload_document'))
+
+# def results(documento_id):
+#     item_repo = ItemRepository()
+#     itens = item_repo.get_by_documento_id(documento_id)
+#     return render_template('results.html', itens=itens)
+    

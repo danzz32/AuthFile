@@ -1,4 +1,58 @@
-<h5 class=" fundo px-3 text-light">Envio de Documentos</h5>
+<h5 class="fundo px-3 text-light">Envio de Documentos</h5>
 <div class="p-2">
-    <input type="file" name="upload_document" id="" class="">
+  <div class="container text-center">
+    <form
+      action="{{ url_for('main.upload_document') }}"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <div class="row">
+        <div class="input-group mb-3">
+          <label class="input-group-text label-custom" for="inputGroupFile01"
+            >Edital</label
+          >
+          <input
+            type="file"
+            class="form-control"
+            id="inputGroupFile01"
+            name="edital"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-group mb-3">
+          <label class="input-group-text label-custom" for="inputGroupFile02"
+            >Licitação</label
+          >
+          <input
+            type="file"
+            class="form-control"
+            id="inputGroupFile02"
+            name="licitacao"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-group mb-3">
+          <label class="input-group-text label-custom" for="inputGroupFile03"
+            >Tabela de referência</label
+          >
+          <input
+            type="file"
+            class="form-control"
+            id="inputGroupFile03"
+            name="precos"
+          />
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Enviar Documentos</button>
+    </form>
+  </div>
 </div>
+
+<style>
+  .label-custom {
+    width: 250px;
+    text-align: center;
+  }
+</style>

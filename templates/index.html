@@ -1,78 +1,92 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block head %}
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+  }
 
-{% block head %}
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-        }
+  a#name-logo {
+    color: #0d04f1;
+  }
 
-        a#name-logo {
-            color: #0d04f1;
-        }
+  .fundo {
+    background-color: #0d04f1;
+  }
 
-        .fundo {
-            background-color: #0d04f1;
-        }
+  .navbar .navbar-nav .nav-link {
+    font-size: 0.75rem;
+  }
 
-        .navbar .navbar-nav .nav-link {
-            font-size: 0.75rem;
-        }
+  .table-container {
+    width: 100%;
+    height: 90vh;
+    padding: 20px;
+    box-sizing: border-box;
+  }
 
-        .table-container {
-            width: 100%;
-            height: 90vh;
-            padding: 20px;
-            box-sizing: border-box;
-        }
+  .nav-pills .nav-link {
+    margin-bottom: 1rem;
+  }
 
-        .nav-pills .nav-link {
-            margin-bottom: 1rem;
-        }
+  .tab-content {
+    height: 100%;
+    overflow-y: auto;
+  }
 
-        .tab-content {
-            height: 100%;
-            overflow-y: auto;
-        }
-    </style>
-{% endblock %}
-
-{% block navbar %}
-    {% include 'navbar.html' %}
-{% endblock %}
-
+  .text-justify {
+    text-align: justify;
+  }
+</style>
+{% endblock %} {% block navbar %} {% include 'navbar.html' %} {% endblock %} 
 {% block body %}
-    <div class="container-fluid m-0 p-0 text-left table-container">
-        <div class="row h-100 m-0" style="column-gap: 2%">
-            <div class="col-2 bg-light border border-primary rounded"
-                 style="padding-left: 0px;padding-right: 0px;margin-bottom: 50px">
-                <h5 class=" fundo px-3 text-light">Menu</h5>
-                <div class="p-2">
-                    {% include 'menu.html' %}
-                </div>
-            </div>
-            <div class="col-9 bg-light border border-primary rounded"
-                 style="padding-left: 0px;padding-right: 0px;margin-bottom: 50px">
-                <div class="tab-content h-100" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
-                         aria-labelledby="v-pills-home-tab">
-                        {% include 'upload.html' %}
-                    </div>
-                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
-                         aria-labelledby="v-pills-profile-tab">
-                        {% include 'historic.html' %}
-                    </div>
-                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
-                         aria-labelledby="v-pills-messages-tab">
-                        {% include 'help.html' %}
-                    </div>
-                    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
-                         aria-labelledby="v-pills-settings-tab">
-                        {% include 'about.html' %}
-                    </div>
-                </div>
-            </div>
-
-        </div>
+<div class="container-fluid m-0 p-0 text-left table-container">
+  <div class="row h-100 m-0" style="column-gap: 2%">
+    <div
+      class="col-2 bg-light border border-primary rounded"
+      style="padding-left: 0px; padding-right: 0px; margin-bottom: 50px"
+    >
+      <h5 class="fundo px-3 text-light">Menu</h5>
+      <div class="p-2">{% include 'menu.html' %}</div>
     </div>
-{% endblock %}
+    <div
+      class="col-9 bg-light border border-primary rounded"
+      style="padding-left: 0px; padding-right: 0px; margin-bottom: 50px"
+    >
+      <div class="tab-content h-100" id="v-pills-tabContent">
+        <div
+          class="tab-pane fade show active"
+          id="v-pills-home"
+          role="tabpanel"
+          aria-labelledby="v-pills-home-tab"
+        >
+          {% include 'upload.html' %}
+        </div>
+        <div
+          class="tab-pane fade"
+          id="v-pills-profile"
+          role="tabpanel"
+          aria-labelledby="v-pills-profile-tab"
+        >
+          {% include 'historic.html' %}
+        </div>
+        <div
+          class="tab-pane fade"
+          id="v-pills-messages"
+          role="tabpanel"
+          aria-labelledby="v-pills-messages-tab"
+        >
+          {% include 'help.html' %}
+        </div>
+        <div
+          class="tab-pane fade"
+          id="v-pills-settings"
+          role="tabpanel"
+          aria-labelledby="v-pills-settings-tab"
+        >
+          {% include 'about.html' %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

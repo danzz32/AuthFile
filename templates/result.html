@@ -1,0 +1,53 @@
+{% extends 'base.html' %} {% block head %}
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  table,
+  th,
+  td {
+    border: 1px solid black;
+  }
+
+  th,
+  td {
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+</style>
+{% endblock %} {% block navbar %} {% include 'navbar.html' %} {% endblock %} {%
+block body %}
+<div class="container-fluid table-container">
+  <h2>Itens da Licitação</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Valor Unitário</th>
+        <th>Quantidade</th>
+        <th>Marca</th>
+        <th>Fabricante</th>
+        <th>Descrição</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in itens %}
+      <tr>
+        <td>{{ item.nome }}</td>
+        <td>{{ item.vlr_unit }}</td>
+        <td>{{ item.quantidade }}</td>
+        <td>{{ item.marca }}</td>
+        <td>{{ item.fabricante }}</td>
+        <td>{{ item.descricao }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

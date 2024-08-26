@@ -1,6 +1,4 @@
 Flask
-torch
-transformers
 pytesseract
 Pillow
 Flask-SQLAlchemy
@@ -9,4 +7,8 @@ firebase-admin
 Flask-Wtf
 wtforms
 PyMuPDF
+PyPDF2
 python-docx
+transformers
+numpy
+pdfplumber

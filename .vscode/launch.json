@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Depurador do Python: Flask",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "flask",
+      "env": {
+        "FLASK_APP": "app.py",
+        "FLASK_DEBUG": "1"
+      },
+      "args": ["run", "--no-debugger", "--no-reload"],
+      "autoStartBrowser": false,
+      "justMyCode": true,
+      "envFile": "${workspaceFolder}/.env",
+      "console": "integratedTerminal"
+    }
+  ]
+}

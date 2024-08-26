@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "authfile"
+version = "0.1.0"
+description = "Descrição do seu projeto"
+authors = ["Danilo Monteiro danilosm721@gmail.com"]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+Flask = "*"
+pytesseract = "*"
+Pillow = "*"
+Flask-SQLAlchemy = "*"
+Flask-Migrate = "*"
+firebase-admin = "*"
+Flask-Wtf = "*"
+wtforms = "*"
+PyMuPDF = "*"
+PyPDF2 = "*"
+python-docx = "*"
+transformers = "*"
+numpy = "*"
+pdfplumber="*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

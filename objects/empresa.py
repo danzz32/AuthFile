@@ -1,6 +1,5 @@
 from models import db
 
-
 class Empresa(db.Model):
     __tablename__ = 'empresas'
 
@@ -10,6 +9,8 @@ class Empresa(db.Model):
     representante = db.Column(db.String(100), nullable=False)
     email_comercial = db.Column(db.String(120), unique=True, nullable=False)
     senha = db.Column(db.String(100), nullable=False)
+
+    documentos = db.relationship('Documento', back_populates='empresa', cascade='all, delete-orphan')
 
     def __init__(self, nome, cnpj, representante, email_comercial, senha):
         self.nome = nome

@@ -1,8 +1,7 @@
 from flask import Flask
-
 from config import Config
 from models import init_db
-
+from controllers.routes import main_bp      
 
 def create_app():
     app = Flask(__name__)
@@ -11,11 +10,10 @@ def create_app():
     # Iniciando o banco de dados
     init_db(app)
 
-    from controllers.routes import main_bp
+    # Registrar rotas e blueprints
     app.register_blueprint(main_bp)
 
     return app
-
 
 if __name__ == '__main__':
     app = create_app()
