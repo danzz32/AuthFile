@@ -90,46 +90,46 @@ def user_info():
 
 
 # FAZER OS TESTES NO PC DO LAB
-# def upload_document():
-#     if 'licitacao' not in request.files:
-#         flash('Nenhum arquivo enviado.', 'error')
-#         return redirect(url_for('upload_page'))
+def upload_document():
+    if 'licitacao' not in request.files:
+        flash('Nenhum arquivo enviado.', 'error')
+        return redirect(url_for('upload_page'))
 
-#     file = request.files['licitacao']
+    file = request.files['licitacao']
 
-#     if file.filename == '':
-#         flash('Nenhum arquivo selecionado.', 'error')
-#         return redirect(url_for('upload_page'))
+    if file.filename == '':
+        flash('Nenhum arquivo selecionado.', 'error')
+        return redirect(url_for('upload_page'))
 
-#     if file:
-#         # Defina o diretório para salvar o arquivo
-#         upload_folder = 'files'  # Ajuste o caminho conforme necessário
-#         os.makedirs(upload_folder, exist_ok=True)
+    if file:
+        # Defina o diretório para salvar o arquivo
+        upload_folder = 'files'  # Ajuste o caminho conforme necessário
+        os.makedirs(upload_folder, exist_ok=True)
 
-#         filepath = os.path.join(upload_folder, file.filename)
-#         print(f"Saving file to: {filepath}")
+        filepath = os.path.join(upload_folder, file.filename)
+        print(f"Saving file to: {filepath}")
 
-#         try:
-#             file.save(filepath)
-#         except Exception as e:
-#             flash(f'Erro ao salvar o arquivo: {e}', 'error')
-#             return redirect(url_for('upload_page'))
+        try:
+            file.save(filepath)
+        except Exception as e:
+            flash(f'Erro ao salvar o arquivo: {e}', 'error')
+            return redirect(url_for('upload_page'))
 
-#         # Extraia a tabela e adicione os itens ao banco de dados
-#         item_data_list = extract_table_from_pdf(filepath)
-#         documento_id = request.form.get('documento_id')  # Obtenha o ID do documento, se necessário
+        # Extraia a tabela e adicione os itens ao banco de dados
+        # item_data_list = extract_table_from_pdf(filepath)
+        # documento_id = request.form.get('documento_id')  # Obtenha o ID do documento, se necessário
 
-#         item_repository = ItemRepository()
-#         item_repository.add_items_from_data(item_data_list, documento_id)
+        # item_repository = ItemRepository()
+        # item_repository.add_items_from_data(item_data_list, documento_id)
 
-#         flash('Documentos enviados e itens adicionados com sucesso!', 'success')
-#         return redirect(url_for('results_page'))
+        flash('Documentos enviados e itens adicionados com sucesso!', 'success')
+        return redirect(url_for('results_page'))
 
-#     flash('Erro ao processar o arquivo.', 'error')
-#     return redirect(url_for('upload_document'))
+    flash('Erro ao processar o arquivo.', 'error')
+    return redirect(url_for('upload_document'))
 
-# def results(documento_id):
-#     item_repo = ItemRepository()
-#     itens = item_repo.get_by_documento_id(documento_id)
-#     return render_template('results.html', itens=itens)
+def results(documento_id):
+    item_repo = ItemRepository()
+    itens = item_repo.get_by_documento_id(documento_id)
+    return render_template('results.html', itens=itens)
     
